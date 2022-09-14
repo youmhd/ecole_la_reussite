@@ -1,0 +1,51 @@
+{% extends 'students/layout.html' %} {% block content %}
+<h1>Liste des Etudiants</h1>
+<div class="col-12 d-flex justify-content-end mb-2">
+    <a class="btn btn-primary sm " href="{% url 'add-student' %}"> Nouveau Etudiant </a>
+</div>
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                <center>Nom et Prenom</center>
+            </th>
+            <th>
+                <center>Adresse Email</center>
+            </th>
+            <th>
+                <center>Genre</center>
+            </th>
+            <!-- <th><center>Image</center></th> -->
+            <th>
+                <center>Remarques</center>
+            </th>
+            <th>
+                <center>Actions</center>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+        <tr class="success">
+            <td>{{student.name}}</td>
+            <td>{{student.email}}</td>
+            <td>{{student.gender}}</td>
+            <!-- <td><img class="img-fluid rounded-circle" src="/media/{{student.image}}" class="card-img-top" style="height: 50px;width: 60px;" alt="Fissure in Sandstone"/> </td> -->
+            <td>{{student.description | truncatechars:20 }}</td>
+            <td><a class="btn btn-outline-danger sm" href="{% url 'delete-student' student.id %}">
+				Delete</a>
+
+                <a class="btn btn-outline-info sm" href="{% url 'update-student' student.id %}">
+					Modifier
+				</a>
+                <a class="btn btn-outline-primary sm" href="{% url 'show-student' student.id %}">
+					Details
+				</a>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
